@@ -12,13 +12,15 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler(Looper.getMainLooper()).postDelayed(Runnable {
-            if((application as MyApplication).readSharedPref("firstName").isEmpty()){
-                val newIntent= Intent(application,SignInActivity::class.java)
-                startActivity(newIntent)
-            } else {
-                val newIntent= Intent(application,HomeActivity::class.java)
-                startActivity(newIntent)
-            }
+//            if((application as MyApplication).readSharedPref("firstName").isEmpty()){
+//                val newIntent= Intent(application,SignInActivity::class.java)
+//                startActivity(newIntent)
+//            } else {
+//                val newIntent= Intent(application,HomeActivity::class.java)
+//                startActivity(newIntent)
+//            }
+            val newIntent= Intent(application,HomeActivity::class.java)
+            startActivity(newIntent)
             finish()
         },2000)
     }
