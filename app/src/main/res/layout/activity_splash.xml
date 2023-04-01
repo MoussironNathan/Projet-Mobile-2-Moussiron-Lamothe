@@ -14,7 +14,7 @@
         android:layout_marginTop="229dp"
         android:layout_marginEnd="93dp"
         android:layout_marginBottom="277dp"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
