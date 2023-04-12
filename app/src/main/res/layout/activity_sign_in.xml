@@ -16,7 +16,6 @@
     <Button
         android:id="@+id/buttonQR"
         style="@style/HomeButton"
-        android:layout_height="150dp"
         android:text="@string/QRcode" />
 
     <Button
