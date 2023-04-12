@@ -22,7 +22,8 @@
             android:layout_height="60dp"
             android:gravity="center"
             android:textStyle="bold"
-            android:textSize="28sp" />
+            android:textSize="28sp"
+            android:textColor="@color/white"/>
 
         <ImageView
             android:id="@+id/imageViewBack"

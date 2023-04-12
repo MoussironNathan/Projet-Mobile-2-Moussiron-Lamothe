@@ -9,9 +9,10 @@ import androidx.core.content.ContextCompat
 class QRcodeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_in)
+        setContentView(R.layout.qrcode_activity)
 
-        setHeaderTxt("Inscription")
+        setHeaderTxt("Création de compte")
+        showBack()
 
     }
 }

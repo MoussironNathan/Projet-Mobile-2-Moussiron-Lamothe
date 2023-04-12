@@ -24,6 +24,12 @@
             android:name=".SignInActivity"
             android:exported="false" />
         <activity
+            android:name=".QRcodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FormActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
