@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Projet-Mobile-2-Moussiron-Lamothe</string>
+    <string name="QRcode">QRcode</string>
+    <string name="Formulaire">Formulaire</string>
+    <string name="signup_txt_lastname">Last Name</string>
+    <string name="signup_txt_firstname">First Name</string>
+    <string name="signup_txt_email">Email</string>
+    <string name="signup_txt_address">Address</string>
+    <string name="signup_txt_code">Code Postal</string>
+    <string name="signup_txt_city">Ville</string>
+    <string name="signup_txt_codeCarte">Carte</string>
+    <string name="signup_btn_signup">Sign Up</string>
+
 </resources>

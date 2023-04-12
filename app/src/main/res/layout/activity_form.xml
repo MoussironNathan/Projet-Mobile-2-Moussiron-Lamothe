@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SignInActivity">
+
+    <include
+        layout="@layout/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextLastName"
+                style="@style/EditTextEpsi"
+                android:ems="10"
+                android:hint="@string/signup_txt_lastname"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextFirstName"
+                style="@style/EditTextEpsi"
+                android:ems="10"
+                android:hint="@string/signup_txt_firstname"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextTextEmailAddress"
+                style="@style/EditTextEpsi"
+                android:ems="10"
+                android:hint="@string/signup_txt_email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/editTextAddress"
+                style="@style/EditTextEpsi"
+                android:ems="10"
+                android:hint="@string/signup_txt_address"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextCodePostal"
+                style="@style/EditTextEpsi"
+                android:ems="10"
+                android:hint="@string/signup_txt_code"
+                android:inputType="number"
+                android:maxLength="5" />
+
+            <EditText
+                android:id="@+id/editTextCity"
+                style="@style/EditTextEpsi"
+                android:ems="10"
+                android:hint="@string/signup_txt_city"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/editTextCodeCarte"
+                style="@style/EditTextEpsi"
+                android:ems="10"
+                android:hint="@string/signup_txt_codeCarte"
+                android:inputType="number"
+                android:maxLength="9" />
+
+            <Button
+                android:id="@+id/signUpButtonSignUp"
+                style="@style/EpsiButton"
+                android:text="@string/signup_btn_signup" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+
