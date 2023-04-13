@@ -3,15 +3,13 @@ package fr.epsi.mobile
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import com.example.projet_mobile_2_moussiron_lamothe.Categories
-import com.example.projet_mobile_2_moussiron_lamothe.Magasins
+import com.example.projet_mobile_2_moussiron_lamothe.HomeActivity
 import com.example.projet_mobile_2_moussiron_lamothe.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -21,7 +19,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import okhttp3.*
 import org.json.JSONObject
-import java.io.IOException
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,50 +53,6 @@ class Tab3Fragment : Fragment() {
         }
     }
 
-    var cities = "{\"cities\":[";
-
-    private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-
-        val jsonCities = JSONObject(cities)
-        val items = jsonCities.getJSONArray("cities")
-
-        for (i in 0..items.length() - 1) {
-            val jsonCity = items.getJSONObject(i)
-            val city = MarkerOptions()
-            val cityLatLng = LatLng(jsonCity.optDouble("lan", 0.0), jsonCity.optDouble("lng", 0.0))
-            city.title(jsonCity.optString("city"))
-            city.position(cityLatLng)
-            googleMap.addMarker(city)
-        }
-
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(48.854885, 2.338646), 5f))
-
-        googleMap.setOnMapClickListener {
-            Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
-        }
-
-        googleMap.setOnInfoWindowClickListener {
-            Toast.makeText(context, it.title.toString(), Toast.LENGTH_SHORT).show()
-        }
-        this.googleMap = googleMap
-        locationPermissionRequest.launch(
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-        )
-
-    }
-
     private var param1: String? = null
     private var param2: String? = null
 
@@ -119,65 +72,47 @@ class Tab3Fragment : Fragment() {
         return inflater.inflate(R.layout.fragment_tab3, container, false)
     }
 
+    val callback = OnMapReadyCallback { googleMap ->
+        /**
+         * Manipulates the map once available.
+         * This callback is triggered when the map is ready to be used.
+         * This is where we can add markers or lines, add listeners or move the camera.
+         * In this case, we just add a marker near Sydney, Australia.
+         * If Google Play services is not installed on the device, the user will be prompted to
+         * install it inside the SupportMapFragment. This method will only be triggered once the
+         * user has installed Google Play services and returned to the app.
+         */
+        val jsonCities = JSONObject((activity as HomeActivity).cities)
+        val items = jsonCities.getJSONArray("cities")
+        for (i in 0..items.length() - 1) {
+            val jsonCity = items.getJSONObject(i)
+            val city = MarkerOptions()
+            val cityLatLng = LatLng(jsonCity.optDouble("lan", 0.0), jsonCity.optDouble("lng", 0.0))
+            city.title(jsonCity.optString("city"))
+            city.position(cityLatLng)
+            googleMap.addMarker(city)
+        }
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(48.854885, 2.338646), 5f))
+        googleMap.setOnMapClickListener {
+            Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
+        }
+        googleMap.setOnInfoWindowClickListener {
+            Toast.makeText(context, it.title.toString(), Toast.LENGTH_SHORT).show()
+        }
+        this.googleMap = googleMap
+        locationPermissionRequest.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val magasins = arrayListOf<Magasins>()
-
-        val okHttpClient: OkHttpClient = OkHttpClient.Builder().build()
-        val mRequestUrl = "https://www.ugarit.online/epsi/stores.json"
-        val request =
-            Request.Builder().url(mRequestUrl).cacheControl(CacheControl.FORCE_NETWORK).build()
-
-        okHttpClient.newCall(request).enqueue(object : Callback {
-            override fun onResponse(call: okhttp3.Call, response: Response) {
-                val data = response.body?.string()
-                if (data != null) {
-                    val jsMagasins = JSONObject(data)
-                    val jsArrayMagasin = jsMagasins.getJSONArray("stores")
-
-                    for (i in 0 until jsArrayMagasin.length()) {
-                        val jsMagasin = jsArrayMagasin.getJSONObject(i)
-                        val magasin = Magasins(
-                            jsMagasin.optInt("storeId"),
-                            jsMagasin.optString("name", "Not found"),
-                            jsMagasin.optString("description", "Not found"),
-                            jsMagasin.optString("pictureStore", "Not found"),
-                            jsMagasin.optString("address", "Not found"),
-                            jsMagasin.optString("zipcode", "Not found"),
-                            jsMagasin.optString("city", "Not found"),
-                            jsMagasin.optDouble("longitude"),
-                            jsMagasin.optDouble("latitude"),
-                        )
-                        magasins.add(magasin)
-
-                        if(i != jsArrayMagasin.length())
-                            cities = cities + "{\"city\":\"" + jsMagasin.optString("city", "Not found") +
-                                    "\",\"lan\":"+ jsMagasin.optDouble("latitude") +
-                                    ",\"lng\":" + jsMagasin.optDouble("longitude") + "}, \n"
-                        else
-                            cities = cities + "{\"city\":\"" + jsMagasin.optString("city", "Not found") +
-                                    "\",\"lan\":"+ jsMagasin.optDouble("latitude") +
-                                    ",\"lng\":" + jsMagasin.optDouble("longitude") + "}]} \n"
-
-                    }
-
-                    Log.e("WS", data)
-                }
-            }
-
-            override fun onFailure(call: okhttp3.Call, e: IOException) {
-                activity?.runOnUiThread(Runnable {
-                    Toast.makeText(activity!!.application, e.message, Toast.LENGTH_SHORT).show()
-                })
-            }
-
-        })
-
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
-
-
     }
 
     companion object {
