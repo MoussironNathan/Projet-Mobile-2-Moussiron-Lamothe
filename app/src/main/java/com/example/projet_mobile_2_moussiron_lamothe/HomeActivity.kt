@@ -19,6 +19,7 @@ class HomeActivity : BaseActivity() {
     val tab2Fragment = Tab2Fragment.newInstance("", "")
     val tab3Fragment = Tab3Fragment.newInstance("", "")
     var cities = "{\"cities\":["
+    var magasins = arrayListOf<Magasins>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,16 +84,12 @@ class HomeActivity : BaseActivity() {
     }
 
     fun setCities() {
-        val magasins = arrayListOf<Magasins>()
         val okHttpClient: OkHttpClient = OkHttpClient.Builder().build()
         val mRequestUrl = "https://www.ugarit.online/epsi/stores.json"
         val request =
             Request.Builder().url(mRequestUrl).cacheControl(CacheControl.FORCE_NETWORK).build()
-
-        println("debut")
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: okhttp3.Call, response: Response) {
-                println("toto")
                 val data = response.body?.string()
                 if (data != null) {
                     val jsMagasins = JSONObject(data)
@@ -111,8 +108,6 @@ class HomeActivity : BaseActivity() {
                             jsMagasin.optDouble("latitude"),
                         )
                         magasins.add(magasin)
-                        println(i)
-                        println(jsArrayMagasin.length())
                         if(i != jsArrayMagasin.length()-1)
                             cities = cities + "{\"city\":\"" + jsMagasin.optString("city", "Not found") +
                                     "\",\"lan\":"+ jsMagasin.optDouble("latitude") +

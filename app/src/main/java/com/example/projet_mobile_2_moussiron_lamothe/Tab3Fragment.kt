@@ -2,6 +2,7 @@ package fr.epsi.mobile
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import com.example.projet_mobile_2_moussiron_lamothe.HomeActivity
-import com.example.projet_mobile_2_moussiron_lamothe.R
+import com.example.projet_mobile_2_moussiron_lamothe.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -72,6 +72,24 @@ class Tab3Fragment : Fragment() {
         return inflater.inflate(R.layout.fragment_tab3, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(callback)
+    }
+
+    fun getCityInfo(city: String, items: ArrayList<Magasins>): Magasins? {
+        for (i in 0..items.size - 1) {
+            val jsonCity = items.get(i)
+            println(jsonCity)
+            if(jsonCity.city == city){
+                return jsonCity
+            }
+        }
+        return null
+    }
+
     val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
@@ -97,7 +115,17 @@ class Tab3Fragment : Fragment() {
             Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
         }
         googleMap.setOnInfoWindowClickListener {
-            Toast.makeText(context, it.title.toString(), Toast.LENGTH_SHORT).show()
+            val magasin = getCityInfo(it.title.toString(), (activity as HomeActivity).magasins)
+            val newIntent= Intent((activity as HomeActivity).application, DetailMagasinActivity::class.java)
+            println("toto")
+
+            newIntent.putExtra("name", magasin?.name)
+            newIntent.putExtra("urlImage", magasin?.pictureStore)
+            newIntent.putExtra("adresse", magasin?.address)
+            newIntent.putExtra("city", magasin?.city)
+            newIntent.putExtra("zipcode", magasin?.zipcode)
+            newIntent.putExtra("description", magasin?.description)
+            startActivity(newIntent)
         }
         this.googleMap = googleMap
         locationPermissionRequest.launch(
@@ -106,13 +134,6 @@ class Tab3Fragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
         )
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
     }
 
     companion object {
