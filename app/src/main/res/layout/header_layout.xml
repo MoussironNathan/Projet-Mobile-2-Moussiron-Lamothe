@@ -29,8 +29,14 @@
             android:id="@+id/imageViewBack"
             android:visibility="gone"
             android:layout_width="60dp"
+            android:layout_height="60dp" />
+
+        <ImageView
+            android:id="@+id/imageViewUser"
+            android:visibility="gone"
+            android:layout_width="60dp"
             android:layout_height="60dp"
-            app:srcCompat="@drawable/icon_back" />
+            android:layout_marginStart="350dp" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -25,7 +25,8 @@ class HomeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setHeaderImgOn()
+        setHeaderLogoOn()
+        setHeaderUserOn()
 
         setCities()
 

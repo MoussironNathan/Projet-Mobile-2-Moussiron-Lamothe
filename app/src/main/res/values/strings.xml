@@ -10,5 +10,6 @@
     <string name="signup_txt_city">Ville</string>
     <string name="signup_txt_codeCarte">Carte</string>
     <string name="signup_btn_signup">Sign Up</string>
+    <string name="j_enregistre_les_modifications">J\'enregistre les modifications</string>
 
 </resources>

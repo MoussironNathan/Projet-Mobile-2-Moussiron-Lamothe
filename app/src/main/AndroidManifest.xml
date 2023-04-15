@@ -17,6 +17,9 @@
         android:theme="@style/Theme.ProjetMobile2MoussironLamothe"
         tools:targetApi="31">
         <activity
+            android:name=".UserActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailMagasinActivity"
             android:exported="false" />
 

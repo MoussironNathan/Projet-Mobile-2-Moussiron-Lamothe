@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".UserActivity">
+
+    <include
+        layout="@layout/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/editTextFirstName"
+                style="@style/EditTextUser"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextLastName"
+                style="@style/EditTextUser"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextEmailAddress2"
+                style="@style/EditTextUser"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/editTextAddress"
+                style="@style/EditTextUser"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextPostalAddress"
+                style="@style/EditTextUser"
+                android:inputType="textPostalAddress" />
+
+            <EditText
+                android:id="@+id/editTextCity"
+                style="@style/EditTextUser"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/button"
+                style="@style/EpsiButton"
+                android:layout_marginBottom="50dp"
+                android:text="@string/j_enregistre_les_modifications" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
