@@ -17,29 +17,27 @@ class FormActivity : BaseActivity() {
         setHeaderTxt("Création de compte")
         showBack()
 
-        val resultScan = intent.extras!!.getString("result","")
-        val donnees = JSONObject(resultScan)
-
         val editTextLastName = findViewById<EditText>(R.id.editTextLastName)
-        editTextLastName.setText(donnees.get("lastName").toString())
-
         val editTextFirstName = findViewById<EditText>(R.id.editTextFirstName)
-        editTextFirstName.setText(donnees.get("firstName").toString())
-
         val editTextEmailAddress = findViewById<EditText>(R.id.editTextEmailAddress)
-        editTextEmailAddress.setText(donnees.get("email").toString())
-
         val editTextAddress = findViewById<EditText>(R.id.editTextAddress)
-        editTextAddress.setText(donnees.get("address").toString())
-
         val editTextCodePostal = findViewById<EditText>(R.id.editTextCodePostal)
-        editTextCodePostal.setText(donnees.get("zipcode").toString())
-
         val editTextCity = findViewById<EditText>(R.id.editTextCity)
-        editTextCity.setText(donnees.get("city").toString())
-
         val editTextCardRef = findViewById<EditText>(R.id.editTextCodeCarte)
-        editTextCardRef.setText(donnees.get("cardRef").toString())
+
+        if(intent.extras != null){
+            val resultScan = intent.extras!!.getString("result","")
+            val donnees = JSONObject(resultScan)
+
+            editTextLastName.setText(donnees.get("lastName").toString())
+            editTextFirstName.setText(donnees.get("firstName").toString())
+            editTextEmailAddress.setText(donnees.get("email").toString())
+            editTextAddress.setText(donnees.get("address").toString())
+            editTextCodePostal.setText(donnees.get("zipcode").toString())
+            editTextCity.setText(donnees.get("city").toString())
+            editTextCardRef.setText(donnees.get("cardRef").toString())
+        }
+
 
         val button = findViewById<Button>(R.id.signUpButtonSignUp)
         button.setOnClickListener{
@@ -53,6 +51,7 @@ class FormActivity : BaseActivity() {
 
             val intent = Intent(application, HomeActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }
