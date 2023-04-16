@@ -36,7 +36,7 @@
                 android:inputType="text" />
 
             <EditText
-                android:id="@+id/editTextTextEmailAddress"
+                android:id="@+id/editTextEmailAddress"
                 style="@style/EditTextEpsi"
                 android:ems="10"
                 android:hint="@string/signup_txt_email"
