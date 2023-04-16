@@ -20,6 +20,9 @@ class HomeActivity : BaseActivity() {
     val tab3Fragment = Tab3Fragment.newInstance("", "")
     var cities = "{\"cities\":["
     var magasins = arrayListOf<Magasins>()
+    val nom = (application as MyApplication).readSharedPref("lastName")
+    val prenom = (application as MyApplication).readSharedPref("firstName")
+    val cardRef = (application as MyApplication).readSharedPref("cardRef")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

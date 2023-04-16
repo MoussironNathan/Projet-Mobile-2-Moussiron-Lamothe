@@ -117,7 +117,6 @@ class Tab3Fragment : Fragment() {
         googleMap.setOnInfoWindowClickListener {
             val magasin = getCityInfo(it.title.toString(), (activity as HomeActivity).magasins)
             val newIntent= Intent((activity as HomeActivity).application, DetailMagasinActivity::class.java)
-            println("toto")
 
             newIntent.putExtra("name", magasin?.name)
             newIntent.putExtra("urlImage", magasin?.pictureStore)

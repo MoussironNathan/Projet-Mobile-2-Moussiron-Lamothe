@@ -1,11 +1,23 @@
 package fr.epsi.mobile
 
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.projet_mobile_2_moussiron_lamothe.HomeActivity
+import com.example.projet_mobile_2_moussiron_lamothe.MyApplication
 import com.example.projet_mobile_2_moussiron_lamothe.R
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import com.google.zxing.common.BitMatrix
+import com.journeyapps.barcodescanner.BarcodeEncoder
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,9 +50,32 @@ class Tab1Fragment : Fragment() {
         return inflater.inflate(R.layout.fragment_tab1, container, false)
     }
 
+
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val imageView = view.findViewById<ImageView>(R.id.imageViewCodeBarre)
+        val textViewNomPrenom = view.findViewById<TextView>(R.id.textViewNomPrenom)
+        val textViewCodeBarre = view.findViewById<TextView>(R.id.textViewCodeBarre)
+
+
+        val nom = (activity as HomeActivity).nom
+        val prenom = (activity as HomeActivity).prenom
+        val text = (activity as HomeActivity).cardRef
+
+        val multiFormatWriter = MultiFormatWriter()
+        try {
+            val bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.CODE_128,700,350)
+            val barcodeEncoder = BarcodeEncoder()
+            val bitmap = barcodeEncoder.createBitmap(bitMatrix)
+            imageView.setImageBitmap(bitmap)
+        } catch (e: WriterException) {
+            e.printStackTrace()
+        }
+
+        textViewNomPrenom.text = "$nom $prenom"
+        textViewCodeBarre.text = text
     }
 
     companion object {
